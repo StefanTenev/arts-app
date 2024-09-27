@@ -5,9 +5,9 @@ import User from '../entities/user'
 defineProps<{ msg: string }>()
 
 interface UserType {
-  firstName: string,
-  lastName: string,
-  id: number
+  username: string,
+  password: string,
+  id?: string
 }
 
 interface State {
@@ -18,13 +18,14 @@ const state: State = reactive({
   users: []
 })
 
-const userFirstName = ref('')
-const userLastName = ref('')
+const username = ref('')
+const password = ref('')
 const userId = ref('')
 
 onMounted( async () => {
-  const response = await fetch('http://localhost:3000/')
+  const response = await fetch('http://localhost:3000/users')
   const data = await response.json()
+  console.log(data)
   state.users = [...data]
 })
 
@@ -39,17 +40,16 @@ const selectOptions = [
 
 const addUser = async () => {
   try{
-    const response = await fetch('http://localhost:3000/', {
+    const response = await fetch('http://localhost:3000/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ firstName: userFirstName.value, lastName: userLastName.value })
+      body: JSON.stringify({ username: username.value, password: password.value })
     });
 
     if (response.ok) {
-      const newId =  1 + Math.max(...state.users.map( user => user.id ))
-      state.users.push(new User(userFirstName.value, userLastName.value, newId))
+      state.users.push(new User(username.value, password.value))
       const result = await response.json();
       console.log('Success: ', result)
     }else{
@@ -63,22 +63,22 @@ const addUser = async () => {
 
 const removeUser = async () => {
   try{
-    const response = await fetch('http://localhost:3000/', {
+    const response = await fetch(`http://localhost:3000/users/${userId.value}`, {
       method: 'DELETE',
       headers: {
+        'LOL-TOKEN': 'IBOMBE',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({firstName: userFirstName.value, lastName: userLastName.value, id: userId.value})
     });
-
+    const result = response.json()
     if (response.ok) {
       
-      const userIndex = state.users.findIndex(user => user.id === Number(userId.value))
-      state.users.splice(userIndex, 1)
-      const result = await response.json();
+      // const userIndex = state.users.findIndex(user => user.id === Number(userId.value))
+      // state.users.splice(userIndex, 1)
+      // const result = await response.json();
       console.log('Success: ', result)
     }else{
-      console.error("Fail: ", response.status)
+      console.error("Fail: ", result)
     }
   }
   catch(err){
@@ -89,21 +89,21 @@ const removeUser = async () => {
 const editUser = async () => {
   console.log('FE edit')
   try{
-    const response = await fetch('http://localhost:3000/', {
+    const response = await fetch('http://localhost:3000/users', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({firstName: userFirstName.value, lastName: userLastName.value, id: userId.value})
+      body: JSON.stringify({username: username.value, password: password.value, id: userId.value})
     });
 
     if (response.ok) {
       
 
-      const userIndex = state.users.findIndex(user => user.id === Number(userId.value))
-      console.log(state.users[userIndex], userId.value, userIndex, state.users)
-      state.users[userIndex].firstName = userFirstName.value;
-      state.users[userIndex].lastName = userLastName.value;
+      // const userIndex = state.users.findIndex(user => user.id === Number(userId.value))
+      // console.log(state.users[userIndex], userId.value, userIndex, state.users)
+      // state.users[userIndex].username = username.value;
+      // state.users[userIndex].password = password.value;
 
       const result = await response.json();
       console.log('Success: ', result)
@@ -129,11 +129,11 @@ const editUser = async () => {
       <div v-if="crudOption != 'removeUser'" class="grid-box">
         <label>
           First Name:
-          <input v-model="userFirstName"/>  
+          <input v-model="username"/>  
         </label>
         <label>
           Last Name:
-          <input v-model="userLastName"/>   
+          <input v-model="password"/>   
         </label> 
       </div>
       <label  v-if="crudOption != 'addUser'">
@@ -153,33 +153,14 @@ const editUser = async () => {
 
     <div class="grid-box">
       <h3>Users:</h3>
-      <div v-for="user in state.users" :key="user.id" class="grid-box black-box">
-        <p>First name: {{ user.firstName }}</p>
-        <p>Last name: {{ user.lastName }}</p>
+      <div v-for="user in state.users" :key="user.username" class="grid-box black-box">
+        <p>First name: {{ user.username }}</p>
+        <p>Last name: {{ user.password }}</p>
         <p>ID: {{ user.id }}</p>
       </div>
     </div>
-    <p>
-      Edit
-      <code>components/HelloWorld.vue</code> to test HMR
-    </p>
   </div>
 
-  <p>
-    Check out
-    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-      >create-vue</a
-    >, the official Vue + Vite starter
-  </p>
-  <p>
-    Learn more about IDE Support for Vue in the
-    <a
-      href="https://vuejs.org/guide/scaling-up/tooling.html#ide-support"
-      target="_blank"
-      >Vue Docs Scaling up Guide</a
-    >.
-  </p>
-  <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
 </template>
 
 <style scoped>

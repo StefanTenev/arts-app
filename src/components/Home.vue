@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import Login from './components/Login.vue';
-import Register from './components/Register.vue';
+
 </script>
 
 <template>
-  <Login />
-  <Register />
-  <HelloWorld msg="TEST" />
-
+  <h1>Logged in!</h1>
+  <h3>Foods: </h3>
 </template>
 
 <style scoped>
