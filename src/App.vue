@@ -1,11 +1,29 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import HelloWorld from './components/HelloWorld.vue'
 import Login from './components/Login.vue';
 import Register from './components/Register.vue';
+import Logout from './components/Logout.vue';
+import { computed } from 'vue';
+import { useTokensStore } from './stores/tokens';
+import { watch } from 'vue';
+
+onMounted(() => {
+  console.log("access token: ", accessToken.value)
+})
+
+const tokensStore = useTokensStore()
+
+const accessToken = computed(() => tokensStore.accessJWT)
+
+watch(accessToken, () => {
+  console.log(accessToken.value)
+})
 </script>
 
 <template>
-  <Login />
+  <Logout v-if="accessToken" />
+  <Login v-else-if="accessToken === ''"/>
   <Register />
   <HelloWorld msg="TEST" />
 

@@ -1,33 +1,20 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useTokensStore } from '../stores/tokens';
+
+const tokensStore = useTokensStore()
 
 const username = ref<string>('')
 const password = ref<string>('')
 
 const logAttempt = ref<number>(0)
 
+const handleLogStuff = () => {
+    console.log(tokensStore)
+}
 const handleLogin = async () => {
-    try{
-        const response = await fetch('http://localhost:3000/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ username: username.value, password: password.value })
-        });
-        const result = await response.json();
-        if (response.ok) {
-            console.log('Success: ', result)
-            logAttempt.value = 1;
-        }else{
-            console.error("Fail: ", result)
-            logAttempt.value = 2
-        }
-    }
-    catch(err){
-        console.error('catch err: ', err)
-        logAttempt.value = 2
-    }
+    await tokensStore.logFetchUser(username.value, password.value)
+    console.log(tokensStore.user, tokensStore.accessJWT, tokensStore.csrfToken)
 }
 </script>
 
@@ -45,6 +32,7 @@ const handleLogin = async () => {
         <button type="submit">Login</button>
     </form>
     <h3>{{ logAttempt == 0 ? '' : logAttempt == 1 ? "Successfully Logged" : "Unsuccessfully logged" }}</h3>
+    <button @click="handleLogStuff">log stuff</button>
 </template>
 
 <style scoped>

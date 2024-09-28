@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
 import User from '../entities/user'
+import { useTokensStore } from '../stores/tokens';
 
 defineProps<{ msg: string }>()
 
@@ -17,6 +18,7 @@ interface State {
 const state: State = reactive({
   users: []
 })
+
 
 const username = ref('')
 const password = ref('')
