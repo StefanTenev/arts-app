@@ -87,17 +87,6 @@ export const useTokensStore = defineStore('tokens', () => {
         }
     }
 
-    // const fetchCSRFToken = async() => {
-    //     isLoading.value = true;
-
-    //     try{
-    //         const response = await fetch("http://localhost:3000/csrf/generate-token", {
-    //             method: "POST",
-    //             body: JSON.stringify({username: username.value, password: password.value, id: userId.value})
-    //         })
-    //     }
-    // }
-
     return { 
         user, 
         isLoading, 

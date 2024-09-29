@@ -1,11 +1,11 @@
 <script setup lang="ts">
 // import { ref } from 'vue';
-import { useTokensStore } from '../stores/tokens';
+import { useAuthStore } from '../stores/authStore';
 
-const tokensStore = useTokensStore()
+const authStore = useAuthStore()
 
 const handleLogout = async () => {
-    await tokensStore.logoutUser()
+    await authStore.userLogout()
     console.log('successful logout')
 }
 </script>

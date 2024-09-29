@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
 import User from '../entities/user'
-import { useTokensStore } from '../stores/tokens';
+import { useAuthStore } from '../stores/authStore';
 
 defineProps<{ msg: string }>()
 

@@ -5,20 +5,16 @@ import Login from './components/Login.vue';
 import Register from './components/Register.vue';
 import Logout from './components/Logout.vue';
 import { computed } from 'vue';
-import { useTokensStore } from './stores/tokens';
-import { watch } from 'vue';
+import { useAuthStore } from './stores/authStore';
 
 onMounted(() => {
-  console.log("access token: ", accessToken.value)
+  tokensStore.fetchSession()
 })
 
-const tokensStore = useTokensStore()
+const tokensStore = useAuthStore()
 
 const accessToken = computed(() => tokensStore.accessJWT)
 
-watch(accessToken, () => {
-  console.log(accessToken.value)
-})
 </script>
 
 <template>

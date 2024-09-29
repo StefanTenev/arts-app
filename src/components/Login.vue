@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useTokensStore } from '../stores/tokens';
+import { useAuthStore } from '../stores/authStore';
 
-const tokensStore = useTokensStore()
+const authStore = useAuthStore()
 
 const username = ref<string>('')
 const password = ref<string>('')
@@ -10,11 +10,11 @@ const password = ref<string>('')
 const logAttempt = ref<number>(0)
 
 const handleLogStuff = () => {
-    console.log(tokensStore)
+    console.log(authStore)
 }
 const handleLogin = async () => {
-    await tokensStore.logFetchUser(username.value, password.value)
-    console.log(tokensStore.user, tokensStore.accessJWT, tokensStore.csrfToken)
+    await authStore.userLogin(username.value, password.value)
+    console.log(authStore.user, authStore.accessJWT, authStore.csrfToken)
 }
 </script>
 
