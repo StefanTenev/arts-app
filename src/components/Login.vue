@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useAuthStore } from '../stores/authStore';
+import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore()
+const router = useRouter()
 
 const username = ref<string>('')
 const password = ref<string>('')
@@ -14,6 +16,7 @@ const handleLogStuff = () => {
 }
 const handleLogin = async () => {
     await authStore.userLogin(username.value, password.value)
+    router.push('/welcome')
     console.log(authStore.user, authStore.accessJWT, authStore.csrfToken)
 }
 </script>

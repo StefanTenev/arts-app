@@ -94,20 +94,24 @@ export const useAuthStore = defineStore('tokens', () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
+                // body: JSON.stringify({ username: "username1", userId: "ee0978bd-7baa-4799-a29f-3b4e5b7b2fbf" })
             })
 
             const result = await response.json()
+            console.log(result)
 
             if(response.ok){
-
+                
                 user.username = result.user.username
                 user.id = result.user.id
                 user.email = result.user.email
                 accessJWT.value = result.accessToken
                 csrfToken.value = result.csrfToken
-
+                console.log("FETCHING SESSION")
+                console.log(result)
+                console.log(accessJWT.value)
             }else{
-
+                console.log("DIDN'T FETCH SESSION")
                 console.log(result)
             }
         }

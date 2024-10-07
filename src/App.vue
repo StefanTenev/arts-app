@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import HelloWorld from './components/HelloWorld.vue'
-import Login from './components/Login.vue';
-import Register from './components/Register.vue';
-import Logout from './components/Logout.vue';
-import { computed } from 'vue';
-import { useAuthStore } from './stores/authStore';
+// import { onMounted } from 'vue';
+// import HelloWorld from './components/HelloWorld.vue'
+// import Login from './components/Login.vue';
+// import Register from './components/Register.vue';
+// import Logout from './components/Logout.vue';
+// import { computed } from 'vue';
+// import { useAuthStore } from './stores/authStore';
 
-onMounted(() => {
-  tokensStore.fetchSession()
-})
+// onMounted(() => {
+//   tokensStore.fetchSession()
+// })
 
-const tokensStore = useAuthStore()
+// const tokensStore = useAuthStore()
 
-const accessToken = computed(() => tokensStore.accessJWT)
+// const accessToken = computed(() => tokensStore.accessJWT)
 
-</script>
+// </script>
 
 <template>
-  <Logout v-if="accessToken" />
+  <!-- <Logout v-if="accessToken" />
   <Login v-else-if="accessToken === ''"/>
   <Register />
-  <HelloWorld msg="TEST" />
-
+  <HelloWorld msg="TEST" /> -->
+  <router-view />
 </template>
 
 <style scoped>
