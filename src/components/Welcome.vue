@@ -9,13 +9,13 @@ const router = useRouter()
 const handleLogout = async () => {
     await authStore.userLogout()
     router.push('/login2')
-    console.log('successful logout')
+    //console.log('successful logout')
 }
 
 const user = computed(() => authStore.user)
 
 const toSecondPage = async () => {
-    console.log(authStore)
+    //console.log(authStore)
     router.push('/second-page')
 
     return { noFetch: true }

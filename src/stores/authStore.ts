@@ -98,7 +98,7 @@ export const useAuthStore = defineStore('tokens', () => {
             })
 
             const result = await response.json()
-            console.log(result)
+            //console.log(result)
 
             if(response.ok){
                 
@@ -107,9 +107,9 @@ export const useAuthStore = defineStore('tokens', () => {
                 user.email = result.user.email
                 accessJWT.value = result.accessToken
                 csrfToken.value = result.csrfToken
-                console.log("FETCHING SESSION")
-                console.log(result)
-                console.log(accessJWT.value)
+                // console.log("FETCHING SESSION")
+                // console.log(result)
+                // console.log(accessJWT.value)
             }else{
                 console.log("DIDN'T FETCH SESSION")
                 console.log(result)

@@ -67,7 +67,7 @@ router.beforeEach( async (to, from, next) => {
     
     const authStore = useAuthStore();
     await authStore.fetchSession();
-    console.log("STORE ACESS TOKEN: ", authStore.accessJWT)
+    //console.log("STORE ACESS TOKEN: ", authStore.accessJWT)
     const hasAccessJWT = !!authStore.accessJWT ;
     const hasCSRF = !!authStore.csrfToken
 

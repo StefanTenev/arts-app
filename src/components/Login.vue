@@ -17,7 +17,7 @@ const handleLogStuff = () => {
 const handleLogin = async () => {
     await authStore.userLogin(username.value, password.value)
     router.push('/welcome')
-    console.log(authStore.user, authStore.accessJWT, authStore.csrfToken)
+    //console.log(authStore.user, authStore.accessJWT, authStore.csrfToken)
 }
 </script>
 
