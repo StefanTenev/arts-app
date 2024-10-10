@@ -17,9 +17,7 @@ onMounted(async() => {
 </script>
 
 <template>
-    <!-- <pre>
-        {{ userFoodEntriesStore.userFoodEntries }}
-    </pre> -->
+
     <div v-for="(userFoodEntry, index) in userFoodEntriesStore.userFoodEntries" class="flex fak" :key="userFoodEntry.id + index">
         <div>
             <h3> {{ userFoodEntry.name }} </h3>
